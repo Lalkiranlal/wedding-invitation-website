@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timeline Test</title>
+    <style>
+        body {
+            background: #000;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+        .test-timeline {
+            padding: 50px;
+            background: #111;
+            margin: 20px 0;
+            border: 2px solid #333;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, #2d5016, #6b9e3a, #2d5016);
+            border-radius: 3px;
+        }
+        .timeline-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, #8bc34a, #aed581, #8bc34a);
+            border-radius: 3px;
+            transition: height 1s ease;
+        }
+        .timeline-item {
+            margin: 30px 0 30px 100px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        .marker-dot {
+            position: absolute;
+            left: 47px;
+            width: 12px;
+            height: 12px;
+            background: #8bc34a;
+            border: 2px solid #2d5016;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Timeline Test</h1>
+    <div class="test-timeline" style="position: relative; min-height: 400px;">
+        <div class="timeline-line">
+            <div class="timeline-progress" id="progress"></div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="marker-dot"></div>
+            <h3>Test Event 1</h3>
+            <p>This is a test timeline item</p>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="marker-dot"></div>
+            <h3>Test Event 2</h3>
+            <p>Another test timeline item</p>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="marker-dot"></div>
+            <h3>Test Event 3</h3>
+            <p>Final test timeline item</p>
+        </div>
+    </div>
+    
+    <button onclick="testAnimation()">Test Animation</button>
+    <button onclick="resetAnimation()">Reset</button>
+    
+    <script>
+        function testAnimation() {
+            console.log("Testing animation...");
+            const progress = document.getElementById('progress');
+            if (progress) {
+                progress.style.height = '100%';
+                console.log("Animation started");
+            } else {
+                console.error("Progress element not found");
+            }
+        }
+        
+        function resetAnimation() {
+            const progress = document.getElementById('progress');
+            if (progress) {
+                progress.style.height = '0%';
+            }
+        }
+        
+        // Auto test after 1 second
+        setTimeout(testAnimation, 1000);
+    </script>
+</body>
+</html>
