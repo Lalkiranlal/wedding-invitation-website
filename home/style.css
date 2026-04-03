@@ -398,6 +398,172 @@ section {
   min-width: 90px;
 }
 
+/* CALENDAR SECTION */
+.calendar-section {
+  padding: 100px 5% 120px;
+  background: #020202;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.calendar-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.calendar-glass-card {
+  background: linear-gradient(145deg, rgba(30, 30, 34, 0.4) 0%, rgba(10, 10, 12, 0.6) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.15);
+  transition: transform 0.5s ease;
+}
+
+.calendar-glass-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px -15px rgba(0,0,0,0.9), 0 0 30px -10px rgba(255,255,255,0.05);
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.calendar-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.calendar-header p {
+  color: #aaaaaa;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.day-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  color: #666666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  font-weight: 600;
+}
+
+.day {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: #cccccc;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.day:not(.empty):hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.special-day {
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  box-shadow: none;
+}
+
+.special-day::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  transform: translate(-50%, -50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M 52,82 C 30,62 12,42 22,22 C 32,8 50,18 50,28 C 55,10 78,8 82,22 C 90,40 70,62 48,86'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.special-day.wedding::before {
+  stroke-width: 2;
+  opacity: 1;
+  width: 38px;
+  height: 38px;
+}
+
+.special-day.wedding:hover {
+  transform: scale(1.1);
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.heart-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M 52,82 C 30,62 12,42 22,22 C 32,8 50,18 50,28 C 55,10 78,8 82,22 C 90,40 70,62 48,86'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.heart-icon.pre-heart {
+  opacity: 0.5;
+}
+
+.heart-icon.wed-heart {
+  opacity: 1;
+}
+
 /* WELCOME FOOTER */
 .welcome-footer {
   padding: 140px 5% 180px;
@@ -500,6 +666,33 @@ section {
 
   .event-card-vine h3 {
     font-size: 1.6rem;
+  }
+
+  .calendar-section {
+    padding: 80px 5%;
+  }
+
+  .calendar-glass-card {
+    padding: 30px 20px;
+  }
+
+  .calendar-grid {
+    gap: 8px;
+  }
+
+  .day {
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .calendar-header h3 {
+    font-size: 2rem;
+  }
+
+  .calendar-legend {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .welcome-footer {
