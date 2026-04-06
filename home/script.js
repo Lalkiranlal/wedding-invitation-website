@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let mouseX = 0, mouseY = 0;
   let ticking = false;
   let hoverActive = false;
+  let autoScrollActive = true;
 
   const isMobile = window.innerWidth <= 768;
 
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const masterItems = document.querySelectorAll(".master-item");
   const bg1 = document.querySelector(".backdrop-1 .parallax-bg-wrapper");
   const bg2 = document.querySelector(".backdrop-2 .parallax-bg-wrapper");
+  const scrollIndicator = document.querySelector(".scroll-indicator");
   
   // Timeline Elements
   const vineSection = document.querySelector('.vine-timeline');
@@ -28,6 +30,45 @@ document.addEventListener("DOMContentLoaded", () => {
     activePath.style.strokeDashoffset = pathLength;
   }
 
+  // --- Auto-scroll Nudge System ---
+  function startAutoScroll() {
+    if (autoScrollActive && window.scrollY < 600) {
+      window.scrollBy(0, 0.5); // Very slow, elegant scroll
+      requestAnimationFrame(startAutoScroll);
+    }
+  }
+
+  // Stop auto-scroll on interaction
+  const stopAutoScroll = () => {
+    autoScrollActive = false;
+    window.removeEventListener("wheel", stopAutoScroll);
+    window.removeEventListener("touchstart", stopAutoScroll);
+    window.removeEventListener("mousedown", stopAutoScroll);
+    window.removeEventListener("keydown", stopAutoScroll);
+  };
+
+  window.addEventListener("wheel", stopAutoScroll);
+  window.addEventListener("touchstart", stopAutoScroll);
+  window.addEventListener("mousedown", stopAutoScroll);
+  window.addEventListener("keydown", stopAutoScroll);
+
+  // Trigger the nudge after the hero video plays for a bit (acting as the 'first loop')
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('timeupdate', function onTimeUpdate() {
+      // If video has played more than 8 seconds or is nearing end
+      if (heroVideo.currentTime > 8 && window.scrollY === 0) {
+        startAutoScroll();
+        heroVideo.removeEventListener('timeupdate', onTimeUpdate);
+      }
+    });
+  } else {
+    // Fallback delay if video is missing
+    setTimeout(() => {
+      if (window.scrollY === 0) startAutoScroll();
+    }, 8000);
+  }
+
   // Scroll Tracking
   window.addEventListener("scroll", () => {
     scrollY = window.pageYOffset;
@@ -35,6 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
       window.requestAnimationFrame(() => {
         updateParallax();
         updateTimeline();
+        if (scrollIndicator) {
+          if (scrollY > 50) {
+            scrollIndicator.style.opacity = "0";
+            scrollIndicator.style.pointerEvents = "none";
+          } else {
+            scrollIndicator.style.opacity = "1";
+          }
+        }
         ticking = false;
       });
       ticking = true;
@@ -163,4 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Trigger initial frame calculation
   updateTimeline();
   updateParallax();
+
+  // Auto-scroll nudge after 5 seconds if the user hasn't moved yet
+  setTimeout(() => {
+    if (window.scrollY === 0) {
+      window.scrollTo({
+        top: 400, // Nudge down 400px
+        behavior: "smooth"
+      });
+    }
+  }, 5000);
 });
