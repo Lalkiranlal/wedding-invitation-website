@@ -701,21 +701,22 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  transform: scale(0.65);
+  margin-top: 15px;
+  transform: scale(0.85);
   transform-origin: top center;
 }
 
 .insta-button {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
   text-decoration: none;
-  background: transparent;
-  padding: 1px 4px;
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
-  opacity: 0.4;
+  opacity: 0.9;
 }
 
 .insta-button:hover {
@@ -724,20 +725,18 @@ section {
 }
 
 .insta-logo-small {
-  width: 8px;
-  height: 8px;
-  border-radius: 1px;
+  width: 14px;
+  height: 14px;
 }
 
 .insta-text {
   color: #ffffff !important;
   /* Force white, no blue */
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.4rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  opacity: 0.5;
 }
 
 /* MOBILE OPTIMIZATION */
